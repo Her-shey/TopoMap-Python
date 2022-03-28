@@ -51,10 +51,10 @@ class WeightEdge(Edge):
         return self.weight < other.weight
 
 
-def findAngle(point1, point2, transform):
+def findAngle(point1: np.ndarray, point2: np.ndarray, transform: Transformation):
     vec = point1 - point2
-    N = Edge(vec).length()
-    transform.cos = vec[0] / N
+    norm = np.linalg.norm(vec)
+    transform.cos = vec[0] / norm
     transform.sin = np.sqrt(1.0 - transform.cos**2)
     if(vec[1] >= 0):
         transform.sin = -transform.sin
@@ -72,7 +72,13 @@ def computeConvexHull(points):
         convex_hull.append(points[0])
         return convex_hull
     
+    convex_hull = ConvexHull(points)
+    return convex_hull
 
 
-
-
+# unitest
+if __name__ == '__main__':
+    points = np.random.rand(30,2)
+    print('Random Points:',points)
+    hull = computeConvexHull(points)
+    print('Convex Hull Index:',hull.vertices.tolist())
