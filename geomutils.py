@@ -1,5 +1,8 @@
+from ctypes.wintypes import POINT
 import numpy as np
 from scipy.spatial import ConvexHull
+import math
+
 
 class Point:
     def __init__(self, _x = 0, _y = 0):
@@ -16,6 +19,7 @@ class Vertex:
 class Component:
     def __init__(self):
         self.vertices = []
+        self.hull = []
 
 
 class Transformation:
@@ -33,7 +37,7 @@ class Edge:
 
     def length(self, type='Euclidean'):
         if type == 'Euclidean':
-            return np.sqrt(np.sum((p1-p2)**2))
+            return np.sqrt(np.sum((self.p1-self.p2)**2))
 
 
 class WeightEdge(Edge):
@@ -75,6 +79,8 @@ def computeConvexHull(points):
     convex_hull = ConvexHull(points)
     return convex_hull
 
+def distance2(p1:Point,p2:Point) -> float:
+    return math.sqrt((p1.x-p2.x)**2 + (p1.y-p2.y)**2)
 
 # unitest
 if __name__ == '__main__':
