@@ -1,8 +1,12 @@
 
 class DisjointSets:
 
-    def __init__(self):
-        self.set = []
+    def __init__(self, size=0):
+        if size == 0:
+
+            self.set = []
+        else:
+            self.set = [-1 for _ in range(size)]
 
     def find(self, x):
         f = self.set[x]
