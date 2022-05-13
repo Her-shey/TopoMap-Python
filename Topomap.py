@@ -4,6 +4,7 @@ from DisjointSets import DisjointSets
 from scipy import spatial, sparse
 import numpy as np
 from mlpack import emst
+import matplotlib.pyplot as plt
 
 class TopoMap:
     def __init__(self, emstLeafSize = 1, verbose = False):
@@ -34,6 +35,7 @@ class TopoMap:
             else:
                 edges.append([point2, point1])
             weights.append(edge)
+
     def sortEdges(self, weights):
         weights_list = []
         for idx in range(len(weights)):
@@ -73,6 +75,7 @@ class TopoMap:
             except:
                 print(comps.set)
                 print(p1,p2)
+                print("something wrong")
                 raise
 
             if c1 == c2:
@@ -144,11 +147,11 @@ class TopoMap:
         merged.hull.clear()
 
         if length >0:
-            print("C1",c1.hull, self.verts[v1].p)
+            # print("C1",c1.hull, self.verts[v1].p)
             t1 = self.allighHull(c1.hull,self.verts[v1].p,True)
             self.transformComponent(c1,t1,0)
 
-            print("C2",c2.hull, self.verts[v2].p)
+            # print("C2",c2.hull, self.verts[v2].p)
             t2 = self.allighHull(c2.hull,self.verts[v2].p,False)
             self.transformComponent(c2,t2,length)
 
@@ -159,7 +162,7 @@ class TopoMap:
             for i in range(len(c2.hull)-1):
                 temp_P = self.transform(c2.hull[i],t2,length)
                 pts[len(c1.hull)-1+i,0], pts[len(c1.hull)-1+i,1] = temp_P.x, temp_P.y
-            print(pts)
+            # print(pts)
             hull_list = geomutils.computeConvexHull(pts,[])
             # For this part, we need to decide keeping Points type or a 2-1 np array
             merged.hull = [geomutils.Point(float(each[0]), float(each[1])) for each in hull_list]

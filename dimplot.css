@@ -1,0 +1,16 @@
+.brushed {
+    fill: #ff3399;
+    stroke: #8e1b54;
+    opacity: 1.0;
+}
+
+.non_brushed {
+    fill: #00ff00;
+    opacity: 0.5;
+}
+
+.extent {
+    stroke: #fff;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+  }
